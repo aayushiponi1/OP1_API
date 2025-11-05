@@ -77,7 +77,6 @@ namespace OP1_API.Areas.OP1.Controllers
 
         [Route("Get-All-BuyerSupplierName/{search?}")]
         [HttpGet]
-        //[Authorize]
         [AllowAnonymous]
         public List<BuyerSupplierModel> GetBuyerSupplierName(string search)
         {

@@ -1,0 +1,9 @@
+# @OP1_API_HostAddress = http://localhost:5120
+
+//after
+@OP1_API_HostAddress = https://localhost:7229
+GET {{OP1_API_HostAddress}}/weatherforecast/
+Accept: application/json
+//extra
+Authorization: Bearer YOUR_VALID_TOKEN
+###

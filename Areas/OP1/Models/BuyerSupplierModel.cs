@@ -1,4 +1,6 @@
 ﻿using OP1_API.Models;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace OP1_API.Areas.OP1.Models
 {
@@ -310,5 +312,49 @@ namespace OP1_API.Areas.OP1.Models
         public string? aBouttermscond { get; set; }
     }
 
+    public class GetBuyerSupplierListParamModel
+    {
+        public int client {  get; set; }
+        public int bilingtype {  get; set; }
+        public string? search {  get; set; }
+    }
+
+    public class GetBuyerSupplierListModel
+    {
+        public string? code {  get; set; }
+        public string? companyname { get; set; }
+        public string? buyercompanyname { get; set; }
+        public string? pricingtype { get; set; }
+        public string? contactpersonname { get; set; }
+        public string? phone { get; set; }
+        public string? email { get; set; }
+        public string? gstin { get; set; }
+        public string? address { get; set; }
+        public string? state { get; set; }
+        public string? city { get; set; }
+        public string? pincode { get; set; }
+        public string? targetamt { get; set; }
+
+    }
+
+    public class GetBuyerMultipleAddressParamModel
+    {
+        public int code { get; set; }
+    }
+
+    public class GetBuyerMultipleAdressModel
+    {
+        public string? sno { get; set; }
+        public string? addressType { get; set; }
+        public string? gstin { get; set; }
+        public string? personname { get; set; }
+        public string? personmobile { get; set; }
+        public string? Address { get; set; }
+        public string? statename { get; set; }
+        public string? cityname { get; set; }
+        public string? pinCode { get; set; }
+        public string? Active { get; set; }
+        public string? Code { get; set; }
+    }
 
 }

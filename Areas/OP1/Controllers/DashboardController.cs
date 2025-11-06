@@ -22,7 +22,7 @@ namespace OP1_API.Areas.OP1.Controllers
         }
 
         [Route("GET_DASHBOARD_COUNT")]
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
         public List<DashboardModel> GetDashboardCount(DashboardModelParam db)
         {

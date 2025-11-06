@@ -1034,7 +1034,93 @@ namespace OP1_API.Areas.OP1.Controllers
             return r;
         }
 
+        [Route("GET_BUYER_SUPPLIER_LIST")]
+        [HttpPost]
+        [AllowAnonymous]
+        public List<GetBuyerSupplierListModel> GetBuyerSupplierList(GetBuyerSupplierListParamModel param)
+        {
+            List<GetBuyerSupplierListModel> r = new List<GetBuyerSupplierListModel>();
+            try
+            {
+                var authorizationHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+                LoginResultModel? _userDetails = cl.GetLiveUserDetails(authorizationHeader);
 
+                DataTable dt = cl.Rj_LoadTableWithProc("sp_Get_BuyerSupplierList", new SqlParameter[]
+                {   
+                    new SqlParameter("@client",param.client),
+                    new SqlParameter("@bilingtype", param.bilingtype),
+                    new SqlParameter("@search", param.search)
+                }, _userDetails.finYear);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    r.Add(new GetBuyerSupplierListModel
+                    {
+                        code = row["code"].ToString(),
+                        companyname = row["companyname"].ToString(), 
+                        buyercompanyname = row["buyercompanyname"].ToString(),
+                        pricingtype = row["pricingtype"].ToString(),
+                        contactpersonname = row["contactpersonname"].ToString(),
+                        phone = row["phone"].ToString(),
+                        email = row["email"].ToString(),
+                        gstin = row["gstin"].ToString(),
+                        address = row["address"].ToString(),
+                        state = row["state"].ToString(),
+                        city = row["city"].ToString(),
+                        pincode = row["pincode"].ToString(),
+                        targetamt = row["targetamt"].ToString()
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return r;
+        }
+
+        [Route("GET_BUYER_MULTIPLE_ADDRESS")]
+        [HttpPost]
+        [AllowAnonymous]
+        public List<GetBuyerMultipleAdressModel> GetBuyerMultipleAdress(GetBuyerMultipleAddressParamModel param)
+        {
+            List<GetBuyerMultipleAdressModel> r = new List<GetBuyerMultipleAdressModel>();
+            try
+            {
+                var authorizationHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+                LoginResultModel? _userDetails = cl.GetLiveUserDetails(authorizationHeader);
+
+                DataTable dt = cl.Rj_LoadTableWithProc("sp_Get_Buyer_Multiple_Address", new SqlParameter[]
+                {
+                    new SqlParameter("@code",param.code)
+                }, _userDetails.finYear);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    r.Add(new GetBuyerMultipleAdressModel
+                    {
+                        sno = row["sno"].ToString(),
+                        addressType = row["addressType"].ToString(),
+                        gstin = row["gstin"].ToString(),
+                        personname = row["personname"].ToString(),
+                        personmobile = row["personmobile"].ToString(),
+                        Address = row["Address"].ToString(),
+                        statename = row["statename"].ToString(),
+                        cityname = row["cityname"].ToString(),
+                        pinCode = row["pinCode"].ToString(),
+                        Active = row["Active"].ToString(),
+                        Code = row["Code"].ToString()
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return r;
+        }
 
     }
 }

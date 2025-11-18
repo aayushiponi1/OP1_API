@@ -232,6 +232,36 @@ namespace OP1_API.ClassCollection
             }
         }
 
+        public DataSet Rj_LoadDataSetWithProc(string ProcName, SqlParameter[] param, string finYear)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                SqlConString = getConnectionString(finYear);
+                using (SqlDataAdapter da = new SqlDataAdapter(ProcName, SqlConString))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.Clear();
+
+                    if (param != null)
+                    {
+                        foreach (SqlParameter prm in param)
+                        {
+                            da.SelectCommand.Parameters.Add(prm);
+                        }
+                    }
+
+                    da.Fill(ds);
+                }
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+        }
+
+
 
         public DataTable Rj_LoadTable(string query, string finYear)
         {
@@ -1471,6 +1501,9 @@ namespace OP1_API.ClassCollection
             return str;
 
         }
+
+        
+
 
     }
 }
